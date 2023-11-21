@@ -1,0 +1,28 @@
+
+
+name: Build Test Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+    - uses: actions/checkout@v3
+    - name: Use Node.js 18.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18.x
+        cache: 'npm'
+    - name: Bild the app
+    - run: npm install
+    - name: Start app
+    - run: npm start &
+    - name: Run integration tests
+    - run: npm test
